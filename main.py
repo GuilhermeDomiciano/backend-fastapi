@@ -6,6 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from database import engine
 from routers import api_router
+from routers.get_loja import router as get_loja_router
+from routers.get_lojas import router as get_lojas_router
+from routers.put_loja import router as put_loja_router
+from routers.put_produto import router as put_produto_router
 
 API_TITLE = "MiniCurso Full Stack (FastAPI + Vite)"
 API_VERSION = "0.1.0"
@@ -32,6 +36,14 @@ app.add_middleware(
 
 # monta as rotas
 app.include_router(api_router)
+
+for router in (
+    get_loja_router,
+    get_lojas_router,
+    put_loja_router,
+    put_produto_router,
+):
+    app.include_router(router)
 
 if __name__ == "__main__":
     import uvicorn
